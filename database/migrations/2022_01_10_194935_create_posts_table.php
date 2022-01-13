@@ -19,6 +19,7 @@ class CreatePostsTable extends Migration
             $table->string('title')->index('title');
             $table->longText('content');
             $table->string('status')->default('publish');
+            $table->timestamp('publication_date')->useCurrent();
             $table->timestamps();
         });
     }
