@@ -19,7 +19,6 @@ class CreatePostsTable extends Migration
             $table->string('title');
             $table->longText('content');
             $table->string('status')->default('publish');
-            $table->string('excerpt');
             $table->timestamps();
         });
     }
