@@ -67,4 +67,17 @@ class AuthController extends Controller
 
         return redirect()->route('home')->with('success', 'Account succesfully created');
     }
+
+    /**
+     * Logout the current user out
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function logout()
+    {
+        session()->flush();
+        Auth::logout();
+
+        return redirect()->route('home');
+    }
 }
