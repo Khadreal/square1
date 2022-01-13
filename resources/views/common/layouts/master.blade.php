@@ -1,11 +1,15 @@
 <!doctype html>
 <html lang="en">
-@include( 'common.partials.header' )
+@include('common.partials.head')
 <body>
-	@include( 'common.partials.nav' )
 
-	@yield( 'content' )
+	<div class="container">
+	@include('common.partials.nav')
 
-	@include( 'common.partials.footer' )
+	@include('common.flash')
+	@yield('content')
+
+	@include('common.partials.footer')
+	</div>
 </body>
 </html>

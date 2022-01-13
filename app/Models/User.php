@@ -18,9 +18,8 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'name', 'email', 'role',
+        'password', 'username'
     ];
 
     /**
@@ -41,4 +40,60 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Set the user's password as hash
+     *
+     * @param  string  $value
+     * 
+     * @return void
+    */
+    public function setPasswordAttribute(string $value) : void
+    {
+        $this->attributes['password'] = \Hash::make($value);
+    }
+
+    /**
+     * Set the user's username
+     * 
+     * @param string $value
+     * 
+     * @return void
+    */
+    public function setUsernameAttribute(string $value) : void
+    {
+        $username = $this->generateUniqueUsername($value) ;
+
+        $this->attributes['username'] = $username;
+    }
+
+    /**
+     * Generate unique username
+     * 
+     * @param string $data
+     * 
+     * @return string
+    */
+    public function generateUniqueUsername(string $username) : string
+    {
+        $usernames = User::where( 'username', 'like', $username.'%' )->get();
+
+        if( ! $usernames->contains( 'username', $username ) ) {
+            return $username;
+        }
+
+        $i = 1;
+        $isContain = true;
+        do {
+            $newUsername = $username . '-' . $i;
+            if ( ! $usernames->contains( 'username', $newUsername ) ) {
+                $isContain = false;
+                $username = $newUsername;
+            }
+            $i++;
+
+        } while( $isContain );
+
+        return $username;
+    }
 }
