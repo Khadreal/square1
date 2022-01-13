@@ -96,4 +96,12 @@ class User extends Authenticatable
 
         return $username;
     }
+
+    /**
+     * Post relationship
+    */
+    public function posts()
+    {
+        return $this->hasMany( Post::class, 'author_id' );
+    }
 }

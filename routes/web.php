@@ -15,16 +15,23 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+});*/
 
 
 /** Post related controllers */
-Route::get('posts', [ PostController::class, 'index' ])->name('home');
+Route::get('/', [ PostController::class, 'index' ])->name('home');
 
 // Auth controller
 Route::get('login', [ AuthController::class, 'login'])->name('login');
 Route::post('login', [ AuthController::class, 'loginProcess'])->name('auth.login');
 Route::get('register', [ AuthController::class, 'register'] )->name('register');
 Route::post('register', [AuthController::class, 'registerProcess'])->name('auth.register');
+
+//Non-guest route
+Route::group( [ 'middleware' => 'auth' ], function() {
+    Route::get('posts',[PostController::class, 'myPosts'])->name('my.posts');
+    Route::get('post-add',[PostController::class, 'add'])->name('post.add');
+    Route::post('post-add',[PostController::class, 'store'])->name('post.store');
+});

@@ -6,10 +6,11 @@
 	  <li class="nav-item">
 	    <a class="nav-link active" aria-current="page" href="#">Home</a>
 	  </li>
-	  <li class="nav-item">
-	    <a class="nav-link active" aria-current="page" href="#">My Posts</a>
-	  </li>
+	  
 	  @auth
+	  <li class="nav-item">
+	    <a class="nav-link active" aria-current="page" href="{{ route('my.posts') }}">My Posts</a>
+	  </li>
 	  @else
 	  <li class="nav-item">
 	    <a class="nav-link" href="{{ route('login') }}">Login</a>
