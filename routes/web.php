@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,4 +21,10 @@ Route::get('/', function () {
 
 
 /** Post related controllers */
-Route::get('posts', [ PostController::class, 'index' ]);
+Route::get('posts', [ PostController::class, 'index' ])->name('home');
+
+// Auth controller
+Route::get('login', [ AuthController::class, 'login'])->name('login');
+Route::post('login', [ AuthController::class, 'loginProcess'])->name('auth.login');
+Route::get('register', [ AuthController::class, 'register'] )->name('register');
+Route::post('register', [AuthController::class, 'registerProcess'])->name('auth.register');
