@@ -41,8 +41,6 @@ class ExternalPost
 		    return json_decode($retval->body())->data;
         }
 
-		error_log( 'External post: --'. $retval->reason() );
-
 		return $retval;
 	}
 
