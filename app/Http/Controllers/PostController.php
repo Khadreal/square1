@@ -3,18 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PostFormRequest;
-use App\Jobs\ProcessExternalPost;
 use Illuminate\Http\Request;
 use App\Models\Post;
 
 class PostController extends Controller
 {
     public function index(Request $request)
-    {
-        //Post
-        $externalPosts = new ProcessExternalPost();
-        $this->dispatch($externalPosts);
-        
+    {   
         $filter = ( new Post )->newQuery()->with('user');
 
         if($request->filter){
