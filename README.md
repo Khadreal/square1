@@ -6,12 +6,14 @@
 Clone this repo and run composer install to install packages.
 
 ##### Step 2:
+- Copy .env.example to .env and update the file with db information
+- Run `php artisan key:generate` to generate key
 - Run migration with `php artisan migration`
 - Run seed `php artisan db:seed`
 - Run `php artisan serve` to view app on browser
 
 #### To run test
-- Run `php artisan test`
+- Run `php artisan test` to view test
 
 #### To fetch external post
 - Run `php artisan external:post `
