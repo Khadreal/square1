@@ -16,7 +16,7 @@ class Post extends Model
      */
     protected $fillable = [
         'title', 'content', 'status',
-        'publication_date'
+        'publication_date', 'author_id'
     ];
 
     /**
@@ -24,6 +24,6 @@ class Post extends Model
     */
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'author_id');
     }
 }
