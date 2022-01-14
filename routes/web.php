@@ -16,10 +16,6 @@ use App\Http\Controllers\AdminController;
 |
 */
 
-/*Route::get('/', function () {
-    return view('welcome');
-});*/
-
 
 /** Post related controllers */
 Route::get('/', [ PostController::class, 'index' ])->name('home');
