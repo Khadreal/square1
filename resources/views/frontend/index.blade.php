@@ -14,6 +14,9 @@
 			</div>
 		</form>
 	</div>
+	
+	@if( $posts->isEmpty())
+	@else
 	<div class="row justify-content-start">
 		@foreach($posts as $post)
 		<div class="col-4">
@@ -24,7 +27,7 @@
 				</p>
 				<div class="meta d-flex justify-content-between">
 					<span>
-						By <strong>{{ $post->user->name}}</strong>
+						By <strong>{{ $post->user->name ?? 'Admin'}}</strong>
 					</span>
 					<span>
 						{{ $post->created_at->diffForHumans() }}
@@ -34,4 +37,6 @@
 		</div>
 		@endforeach
 	</div>
+	@endif
+	
 @endsection
