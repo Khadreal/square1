@@ -1,4 +1,4 @@
-<div class="col-3 p-3" style="background-color: #cbe9ff;">
+<div class="col-3 p-3 align-self-start" style="background-color: #cbe9ff;">
 	<h2>Menu</h2>
 	<ul class="nav flex-column">
 		<li class="nav-item">

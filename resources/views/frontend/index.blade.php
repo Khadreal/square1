@@ -36,6 +36,9 @@
 			</div>
 		</div>
 		@endforeach
+
+		{{$posts->links('pagination::bootstrap-4')}}
+		
 	</div>
 	@endif
 	

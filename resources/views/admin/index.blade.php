@@ -51,14 +51,14 @@
 	  					<td>{{ $post->title }}</td>
 	  					<td>{{ ucfirst($post->status) }}</td>
 	  					<td>{{ $post->created_at->format('y-m-d H:i:s a') }}</td>
-	  					<td>{{ $post->user->name }}</td>
+	  					<td>{{ $post->user->name ?? 'N/A' }}</td>
 	  					<td><a href="{{ route('post.edit',$post->id) }}">Edit</a></td>
 	  				</tr>
 	  				@endforeach
 	  			@endif
 	  		</tbody>
 	  	</table>
-	  	{{ $posts->links() }}
+	  	{{$posts->links('pagination::bootstrap-4')}}
 	  	</div>
 	</div>
 @endsection
