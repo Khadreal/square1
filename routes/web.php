@@ -24,11 +24,12 @@ use App\Http\Controllers\AuthController;
 Route::get('/', [ PostController::class, 'index' ])->name('home');
 
 // Auth controller
-Route::get('login', [ AuthController::class, 'login'])->name('login');
-Route::post('login', [ AuthController::class, 'loginProcess'])->name('auth.login');
-Route::get('register', [ AuthController::class, 'register'] )->name('register');
-Route::post('register', [AuthController::class, 'registerProcess'])->name('auth.register');
-
+Route::group(['middleware' => 'guest' ], function () {
+    Route::get('login', [ AuthController::class, 'login'])->name('login');
+    Route::post('login', [ AuthController::class, 'loginProcess'])->name('auth.login');
+    Route::get('register', [ AuthController::class, 'register'] )->name('register');
+    Route::post('register', [AuthController::class, 'registerProcess'])->name('auth.register');
+});
 //Non-guest route
 Route::group( [ 'middleware' => 'auth' ], function() {
     Route::get('posts',[PostController::class, 'myPosts'])->name('my.posts');
