@@ -17,7 +17,7 @@ class AdminUserSeeder extends Seeder
     {
         $userData = [
             'name' => 'Admin',
-            'username' => 'admin',
+            'username' => Str::random(5),
             'email' => Str::random(10).'@gmail.com',
             'password' => 'password',
             'role' => 'admin'
