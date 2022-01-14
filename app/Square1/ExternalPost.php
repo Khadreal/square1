@@ -38,7 +38,7 @@ class ExternalPost
 		}
 
 		if($retval && $retval->successful()) {
-		    return json_decode($retval->body())->data;
+		    return $retval->object()->data;
         }
 
 		return $retval;
