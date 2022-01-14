@@ -34,4 +34,6 @@ Route::group( [ 'middleware' => 'auth' ], function() {
     Route::get('posts',[PostController::class, 'myPosts'])->name('my.posts');
     Route::get('post-add',[PostController::class, 'add'])->name('post.add');
     Route::post('post-add',[PostController::class, 'store'])->name('post.store');
+    Route::get('edit-post/{id}', [PostController::class, 'edit'])->name('post.edit');
+    Route::post('edit-post/{id}', [PostController::class, 'update'])->name('post.update');
 });

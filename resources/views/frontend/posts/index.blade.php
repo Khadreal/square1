@@ -2,17 +2,7 @@
 
 @section('content')
 	<div class="row">
-		<div class="col-3 p-3" style="background-color: #cbe9ff;">
-			<h2>Menu</h2>
-			<ul class="nav flex-column">
-				<li class="nav-item">
-		          <a class="nav-link active" aria-current="page" href="{{ route('my.posts') }}">My Posts</a>
-		        </li>
-		        <li class="nav-item">
-		          <a class="nav-link" href="{{ route('post.add') }}">Add post</a>
-		        </li>
-			</ul>
-		</div>
+		@include('frontend.posts._sidebar')
 		<div class="col-sm-9 bg-light p-3">
 		<table class="table table-hover">
 	  		<thead class="table-dark">
@@ -20,6 +10,7 @@
 	  				<th>Title</th>
 	  				<th>Status</th>
 	  				<th>Date</th>
+	  				<th>Action</th>
 	  			</tr>
 	  		</thead>
 	  		<tbody>
@@ -33,6 +24,7 @@
 	  					<td>{{ $post->title }}</td>
 	  					<td>{{ ucfirst($post->status) }}</td>
 	  					<td>{{ $post->created_at->format('y-m-d H:i:s a') }}</td>
+	  					<td><a href="{{ route('post.edit',$post->id) }}">Edit</a></td>
 	  				</tr>
 	  				@endforeach
 	  			@endif

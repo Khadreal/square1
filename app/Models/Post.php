@@ -19,6 +19,9 @@ class Post extends Model
         'publication_date', 'author_id'
     ];
 
+    protected $dates = [
+        'publication_date', 'created_at'
+    ];
     /**
      * User relationship
     */

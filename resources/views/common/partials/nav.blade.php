@@ -1,10 +1,10 @@
 <header class="d-flex justify-content-between mb-5 py-4">
-	<a href="#" class="nav-link">
-		Logo
+	<a href="{{ route('home') }}" class="nav-link">
+		SQ1
 	</a>
 	<ul class="nav justify-content-end">
 	  <li class="nav-item">
-	    <a class="nav-link active" aria-current="page" href="#">Home</a>
+	    <a class="nav-link active" aria-current="page" href="{{ route('home') }}">Home</a>
 	  </li>
 	  
 	  @auth

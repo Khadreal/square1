@@ -13,17 +13,23 @@ class PostController extends Controller
         $perPage = $request->per_page ?: 20;
 
         $user = auth()->user();
-        $filter = ( new Post )->newQuery()/*->where( 'author_id', $user->id )*/;
+        $filter = ( new Post )->newQuery()->with('user');
 
         if( $request->q ) {
             $filter->where( 'title', 'like', '%' . $request->q . '%' );
         }
 
-        $posts = $filter->latest()->paginate( $perPage );
+        if($request->filter){
+            $posts = $filter->orderBy('publication_date', $request->filter);
+        }else{
+            $filter->latest();
+        }
 
+        $posts = $filter->paginate( $perPage);
 
         return view( 'frontend.index', [ 
-            'posts' => $posts
+            'posts' => $posts,
+            'title' => 'My posts'
         ] );
     }
 
@@ -48,12 +54,46 @@ class PostController extends Controller
     /**
      * Add new post
     */
-    public function add()
+    public function add(Request $request)
     {
         return view('frontend.posts.add',[
-            'categories' => '',
             'title' => 'Add new post'
-        ])->with( 'title', 'Add new post');
+        ]);
+    }
+
+    /**
+     * Edit post
+    */
+    public function edit($id)
+    {
+        $whereArgs = [
+            'author_id' => auth()->user()->id,
+            'id' => $id
+        ];
+        $post = Post::where($whereArgs)->firstOrFail();
+        $title = 'Edit '. $post->title;
+
+        return view('frontend.posts.edit',[
+            'post' => $post,
+            'title' => $title
+        ]);
+    }
+
+    /**
+    * update post
+    * @param PostFormRequest $request
+    * @param $id
+    */
+    public function update(PostFormRequest $request, $id)
+    {
+        $post = Post::findOrFail($id);
+        $post->title = $request->title;
+        $post->content = $request->description;
+        $post->status = $request->status;
+
+        $post->save();
+
+        return redirect()->route('my.posts')->with('success', 'post updated');
     }
 
     /**
