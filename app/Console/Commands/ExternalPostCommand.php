@@ -40,7 +40,7 @@ class ExternalPostCommand extends Command
      */
     public function handle()
     {
-        $posts = (new ExternalPost())->savePostToDB();
+        $posts = (new ExternalPost())->getExternalPost();
         if(!$posts){
             Log::info('External post run at '. now() . ' was not completed');
         }

@@ -49,7 +49,7 @@ class ExternalPost
 	 *
 	 * @return bool;
 	*/
-	public function savePostToDB() : bool
+	public function getExternalPost() : bool
     {
         $posts = $this->getPost();
 

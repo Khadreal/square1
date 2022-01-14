@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PostFormRequest;
+use App\Jobs\ProcessExternalPost;
 use Illuminate\Http\Request;
 use App\Models\Post;
 
@@ -10,20 +11,21 @@ class PostController extends Controller
 {
     public function index(Request $request)
     {
-        $perPage = $request->per_page ?: $this->perPage;
-
-        $user = auth()->user();
+        //Post
+        $externalPosts = new ProcessExternalPost();
+        $this->dispatch($externalPosts);
+        
         $filter = ( new Post )->newQuery()->with('user');
 
         if($request->filter){
-            $posts = $filter->orderBy('publication_date', $request->filter);
+            $filter->orderBy('publication_date', $request->filter);
         }else{
             $filter->latest();
         }
 
-        $posts = $filter->paginate( $perPage);
+        $posts = $filter->paginate($this->perPage);
 
-        return view( 'frontend.index', [ 
+        return view( 'frontend.index', [
             'posts' => $posts,
             'title' => 'My posts'
         ] );
@@ -31,7 +33,7 @@ class PostController extends Controller
 
     /**
      * My posts -> Returns logged-in user posts
-     * 
+     *
     */
     public function myPosts()
     {
