@@ -4,12 +4,15 @@
 	</a>
 	<ul class="nav justify-content-end">
 	  <li class="nav-item">
-	    <a class="nav-link active" aria-current="page" href="{{ route('home') }}">Home</a>
+	    <a class="nav-link" aria-current="page" href="{{ route('home') }}">Home</a>
 	  </li>
 	  
 	  @auth
 	  <li class="nav-item">
-	    <a class="nav-link active" aria-current="page" href="{{ route('my.posts') }}">My Posts</a>
+	    <a class="nav-link " aria-current="page" href="{{ route('my.posts') }}">My Posts</a>
+	  </li>
+	  <li class="nav-item">
+	    <a class="nav-link" aria-current="page" href="{{ route('auth.logout') }}">Logout</a>
 	  </li>
 	  @else
 	  <li class="nav-item">

@@ -10,14 +10,10 @@ class PostController extends Controller
 {
     public function index(Request $request)
     {
-        $perPage = $request->per_page ?: 20;
+        $perPage = $request->per_page ?: $this->perPage;
 
         $user = auth()->user();
         $filter = ( new Post )->newQuery()->with('user');
-
-        if( $request->q ) {
-            $filter->where( 'title', 'like', '%' . $request->q . '%' );
-        }
 
         if($request->filter){
             $posts = $filter->orderBy('publication_date', $request->filter);

@@ -27,7 +27,7 @@
 						By <strong>{{ $post->user->name}}</strong>
 					</span>
 					<span>
-						{{ $post->publication_date->diffForHumans() }}
+						{{ $post->created_at->diffForHumans() }}
 					</span>
 				</div>
 			</div>

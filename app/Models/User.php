@@ -12,6 +12,10 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    /**Roles*/
+    public const ROLE_ADMIN = 'admin';
+    public const ROLE_CONTRIBUTOR = 'contributor';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -103,5 +107,41 @@ class User extends Authenticatable
     public function posts()
     {
         return $this->hasMany( Post::class, 'author_id' );
+    }
+
+    /**
+     * Check if the user is an admin
+     *
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        return static::ROLE_ADMIN === $this->role;
+    }
+
+    /**
+     * Check if the user is an admin
+     *
+     * @return bool
+     */
+    public function isContributor()
+    {
+        return static::ROLE_CONTRIBUTOR === $this->role;
+    }
+
+
+    /**
+     * Redirect user based on role
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function roleBasedRedirect()
+    {
+        if ($this->isAdmin()) {
+            return redirect()->route('admin');
+        }
+
+
+        return redirect()->route('home');
     }
 }

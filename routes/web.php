@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,9 +33,16 @@ Route::group(['middleware' => 'guest' ], function () {
 });
 //Non-guest route
 Route::group( [ 'middleware' => 'auth' ], function() {
+    Route::get('/auth/logout', [AuthController::class, 'logout'])->name('auth.logout');
     Route::get('posts',[PostController::class, 'myPosts'])->name('my.posts');
     Route::get('post-add',[PostController::class, 'add'])->name('post.add');
     Route::post('post-add',[PostController::class, 'store'])->name('post.store');
     Route::get('edit-post/{id}', [PostController::class, 'edit'])->name('post.edit');
     Route::post('edit-post/{id}', [PostController::class, 'update'])->name('post.update');
+
+    //Admin user route
+    Route::group(['middleware' => ['role:admin'], ], function(){
+        Route::get('/admin', [AdminController::class, 'index'])->name('admin');
+        Route::get('/admin/users', [AdminController::class, 'users'])->name('admin.users');
+    });
 });

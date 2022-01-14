@@ -39,6 +39,13 @@ class AuthController extends Controller
                 ->with('danger', 'Invalid login details');
         }
 
+        if ( $user ) {
+           return $request->user()->roleBasedRedirect();
+        }
+
+        return redirect()
+            ->route('login')
+            ->with('danger', 'Unable to login');
     }
 
     /**
